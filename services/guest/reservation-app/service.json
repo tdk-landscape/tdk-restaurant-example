@@ -1,0 +1,12 @@
+{
+  "appName": "reservation-app",
+  "domain": "guest",
+  "type": "frontend",
+  "stack": "guest",
+  "port": 3100,
+  "dependencies": ["reservation-api"],
+  "healthCheck": {
+    "enabled": true,
+    "path": "/"
+  }
+}

@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 760" role="img" aria-label="Restaurant architecture bento">
+  <rect width="1600" height="760" fill="#101413"/>
+  <g font-family="Arial, sans-serif">
+    <rect x="90" y="90" width="900" height="580" rx="32" fill="#f7efe2" fill-opacity="0.12" stroke="#f7efe2" stroke-opacity="0.2"/>
+    <rect x="1030" y="90" width="480" height="265" rx="32" fill="#b24a32" fill-opacity="0.62"/>
+    <rect x="1030" y="405" width="480" height="265" rx="32" fill="#f5d58b" fill-opacity="0.78"/>
+    <text x="140" y="170" fill="#f7efe2" font-size="42" font-weight="700">Guest Stack</text>
+    <text x="140" y="245" fill="#f7efe2" fill-opacity="0.76" font-size="30">reservation-api :4100</text>
+    <text x="140" y="300" fill="#f7efe2" fill-opacity="0.76" font-size="30">reservation-app :3100</text>
+    <text x="140" y="430" fill="#f7efe2" font-size="42" font-weight="700">Operations Stack</text>
+    <text x="140" y="505" fill="#f7efe2" fill-opacity="0.76" font-size="30">menu-api :4120</text>
+    <text x="140" y="560" fill="#f7efe2" fill-opacity="0.76" font-size="30">floor-app :3120</text>
+    <text x="1080" y="172" fill="#f7efe2" font-size="38" font-weight="700">Kitchen Stack</text>
+    <text x="1080" y="238" fill="#f7efe2" fill-opacity="0.84" font-size="27">kitchen-api :4110</text>
+    <text x="1080" y="288" fill="#f7efe2" fill-opacity="0.84" font-size="27">kitchen-worker :4111</text>
+    <text x="1080" y="495" fill="#101413" font-size="38" font-weight="700">PSR Contract</text>
+    <text x="1080" y="560" fill="#101413" fill-opacity="0.72" font-size="27">Project -> Stack -> Resource</text>
+    <text x="1080" y="610" fill="#101413" fill-opacity="0.72" font-size="27">Manifests generate local flow.</text>
+  </g>
+</svg>

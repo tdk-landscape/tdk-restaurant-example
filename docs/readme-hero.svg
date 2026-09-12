@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 720" role="img" aria-label="TDK Restaurant Operations Landscape">
+  <defs>
+    <radialGradient id="g" cx="72%" cy="18%" r="70%">
+      <stop offset="0" stop-color="#f5d58b" stop-opacity="0.78"/>
+      <stop offset="0.35" stop-color="#b24a32" stop-opacity="0.62"/>
+      <stop offset="1" stop-color="#101413"/>
+    </radialGradient>
+    <filter id="noise">
+      <feTurbulence type="fractalNoise" baseFrequency="0.78" numOctaves="3" stitchTiles="stitch"/>
+      <feColorMatrix type="saturate" values="0"/>
+      <feComponentTransfer><feFuncA type="table" tableValues="0 0.16"/></feComponentTransfer>
+    </filter>
+  </defs>
+  <rect width="1600" height="720" fill="#101413"/>
+  <rect width="1600" height="720" fill="url(#g)"/>
+  <rect width="1600" height="720" filter="url(#noise)" opacity="0.3"/>
+  <path d="M120 530 C320 430 460 590 660 500 C900 390 1100 450 1490 300" fill="none" stroke="#f7efe2" stroke-opacity="0.18" stroke-width="3"/>
+  <text x="120" y="150" fill="#f7efe2" font-family="Arial, sans-serif" font-size="30" letter-spacing="4">TDK RESTAURANT EXAMPLE</text>
+  <text x="120" y="290" fill="#f7efe2" font-family="Arial, sans-serif" font-size="94" font-weight="700">Reservations,</text>
+  <text x="120" y="400" fill="#f7efe2" font-family="Arial, sans-serif" font-size="94" font-weight="700">kitchen, floor.</text>
+  <text x="122" y="485" fill="#f7efe2" fill-opacity="0.72" font-family="Arial, sans-serif" font-size="30">A cloneable TDK landscape for restaurant operations.</text>
+  <g transform="translate(1080 160)">
+    <rect x="0" y="0" width="340" height="390" rx="34" fill="#f7efe2" fill-opacity="0.12" stroke="#f7efe2" stroke-opacity="0.24"/>
+    <circle cx="170" cy="134" r="72" fill="#f5d58b" fill-opacity="0.72"/>
+    <rect x="70" y="242" width="200" height="18" rx="9" fill="#f7efe2" fill-opacity="0.78"/>
+    <rect x="98" y="284" width="144" height="18" rx="9" fill="#f7efe2" fill-opacity="0.44"/>
+  </g>
+</svg>

@@ -1,12 +1,15 @@
 {
-  "appName": "floor-app",
-  "domain": "operations",
-  "type": "frontend",
-  "stack": "operations",
-  "port": 3120,
-  "dependencies": ["menu-api", "reservation-api"],
-  "healthCheck": {
-    "enabled": true,
-    "path": "/"
-  }
+    "appName": "floor-app",
+    "domain": "operations",
+    "type": "frontend",
+    "stack": "operations",
+    "port": 3120,
+    "dependencies": [
+        "menu-api",
+        "reservation-api"
+    ],
+    "healthCheck": {
+        "enabled": true,
+        "path": "/"
+    }
 }

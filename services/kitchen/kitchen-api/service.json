@@ -1,12 +1,12 @@
 {
-  "appName": "kitchen-api",
-  "domain": "kitchen",
-  "type": "backend",
-  "stack": "kitchen",
-  "port": 4110,
-  "dependencies": [],
-  "healthCheck": {
-    "enabled": true,
-    "path": "/health"
-  }
+    "appName": "kitchen-api",
+    "domain": "kitchen",
+    "type": "backend",
+    "stack": "kitchen",
+    "port": 4110,
+    "dependencies": [],
+    "healthCheck": {
+        "enabled": true,
+        "path": "/health"
+    }
 }

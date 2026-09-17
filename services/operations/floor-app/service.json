@@ -1,7 +1,7 @@
 {
     "appName": "floor-app",
     "domain": "operations",
-    "type": "frontend",
+    "appType": "frontend",
     "stack": "operations",
     "port": 3120,
     "dependencies": [

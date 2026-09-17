@@ -4,6 +4,7 @@
     "appType": "frontend",
     "stack": "guest",
     "port": 3100,
+    "basePath": "/reservation-app",
     "dependencies": [
         "reservation-api"
     ],

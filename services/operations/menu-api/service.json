@@ -1,7 +1,7 @@
 {
     "appName": "menu-api",
     "domain": "operations",
-    "type": "backend",
+    "appType": "backend",
     "stack": "operations",
     "port": 4120,
     "dependencies": [],

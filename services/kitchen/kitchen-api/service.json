@@ -1,7 +1,7 @@
 {
     "appName": "kitchen-api",
     "domain": "kitchen",
-    "type": "backend",
+    "appType": "backend",
     "stack": "kitchen",
     "port": 4110,
     "dependencies": [],

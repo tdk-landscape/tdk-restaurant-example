@@ -1,7 +1,7 @@
 {
     "appName": "kitchen-worker",
     "domain": "kitchen",
-    "type": "worker",
+    "appType": "worker",
     "stack": "kitchen",
     "port": 4111,
     "dependencies": [

@@ -1,7 +1,7 @@
 {
     "appName": "reservation-app",
     "domain": "guest",
-    "type": "frontend",
+    "appType": "frontend",
     "stack": "guest",
     "port": 3100,
     "dependencies": [

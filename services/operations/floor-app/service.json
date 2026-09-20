@@ -1,10 +1,9 @@
 {
     "appName": "floor-app",
-    "domain": "operations",
     "appType": "frontend",
     "stack": "operations",
     "port": 3120,
-    "dependencies": [
+    "dependsOn": [
         "menu-api",
         "reservation-api"
     ],

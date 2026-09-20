@@ -1,10 +1,9 @@
 {
     "appName": "menu-api",
-    "domain": "operations",
     "appType": "backend",
     "stack": "operations",
     "port": 4120,
-    "dependencies": [],
+    "dependsOn": [],
     "healthCheck": {
         "enabled": true,
         "path": "/health"

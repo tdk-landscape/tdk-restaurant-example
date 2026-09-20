@@ -1,10 +1,9 @@
 {
     "appName": "kitchen-worker",
-    "domain": "kitchen",
     "appType": "worker",
     "stack": "kitchen",
     "port": 4111,
-    "dependencies": [
+    "dependsOn": [
         "kitchen-api"
     ],
     "healthCheck": {

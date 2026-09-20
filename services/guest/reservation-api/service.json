@@ -1,10 +1,9 @@
 {
     "appName": "reservation-api",
-    "domain": "guest",
     "appType": "backend",
     "stack": "guest",
     "port": 4100,
-    "dependencies": [],
+    "dependsOn": [],
     "healthCheck": {
         "enabled": true,
         "path": "/health"

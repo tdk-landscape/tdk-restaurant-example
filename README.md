@@ -107,11 +107,10 @@ Every restaurant resource owns a compact declarative manifest:
 ```json
 {
   "appName": "reservation-api",
-  "domain": "guest",
   "appType": "backend",
   "stack": "guest",
   "port": 4100,
-  "dependencies": [],
+  "dependsOn": [],
   "healthCheck": {
     "enabled": true,
     "path": "/health"

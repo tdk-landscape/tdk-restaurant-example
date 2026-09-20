@@ -7,5 +7,8 @@
     "healthCheck": {
         "enabled": true,
         "path": "/health"
-    }
+    },
+    "features": [
+        "prisma"
+    ]
 }

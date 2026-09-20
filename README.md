@@ -13,7 +13,7 @@
   &nbsp;&nbsp;/&nbsp;&nbsp;
   <a href="#demo-walkthrough">Demo Walkthrough</a>
   &nbsp;&nbsp;/&nbsp;&nbsp;
-  <a href="https://github.com/tdk-landscape/tdk-cli">TDK CLI</a>
+  <a href="https://github.com/tdk-landscape/tdk-cli-core">TDK CLI</a>
 </p>
 
 <br>
@@ -154,7 +154,7 @@ bun run typecheck
 <p align="center">
   <a href="https://github.com/tdk-landscape">TDK Landscape</a>
   &nbsp;&nbsp;/&nbsp;&nbsp;
-  <a href="https://github.com/tdk-landscape/tdk-cli">CLI</a>
+  <a href="https://github.com/tdk-landscape/tdk-cli-core">CLI</a>
   &nbsp;&nbsp;/&nbsp;&nbsp;
   <a href="DEMO_GUIDE.md">Demo Guide</a>
   &nbsp;&nbsp;/&nbsp;&nbsp;

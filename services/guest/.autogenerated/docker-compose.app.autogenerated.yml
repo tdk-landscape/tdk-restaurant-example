@@ -9,7 +9,7 @@
 # PORT DEFINITIONS - Change these to change ports everywhere
 # =============================================================================
 x-backend-port: &backend-port 4100
-x-frontend-port: &frontend-port 3100
+x-frontend-port: &frontend-port 80
 
 # =============================================================================
 # MEMORY LIMITS
@@ -135,13 +135,13 @@ services:
         - "traefik.http.routers.reservation-app.priority=116"
         - "traefik.http.routers.reservation-app.middlewares=reservation-app-strip-prefix"
         - "traefik.http.middlewares.reservation-app-strip-prefix.stripprefix.prefixes=/reservation-app"
-        - "traefik.http.services.reservation-app.loadbalancer.server.port=3100"
+        - "traefik.http.services.reservation-app.loadbalancer.server.port=80"
         - "traefik.docker.network=tdk_restaurant_example_traefik-public"
     networks:
         - tdk_restaurant_example_traefik-public
         - tdk_restaurant_example_backend
     healthcheck:
-      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://127.0.0.1:3100"]
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://127.0.0.1:80"]
       interval: 10s
       timeout: 5s
       retries: 3

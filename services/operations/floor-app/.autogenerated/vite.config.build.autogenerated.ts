@@ -17,7 +17,7 @@ import { defineConfig } from 'vite';
 
 export default defineConfig({
   mode: 'production',
-  base: '/operationss/',
+  base: '/floor-app/',
   build: {
     cssCodeSplit: false,
     minify: true,

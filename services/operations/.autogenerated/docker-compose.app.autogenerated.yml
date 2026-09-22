@@ -45,11 +45,11 @@ services:
         - VITE_APP_ENV=development
     labels:
         - "traefik.enable=true"
-        - 'traefik.http.routers.floor-app.rule=Host(`floor-app.localhost`) || (Host(`app.tdk-restaurant-example.localhost`) && PathPrefix(`/operationss`)) || (Host(`localhost`) && PathPrefix(`/operationss`))'
+        - 'traefik.http.routers.floor-app.rule=Host(`floor-app.localhost`) || (Host(`app.tdk-restaurant-example.localhost`) && PathPrefix(`/floor-app`)) || (Host(`localhost`) && PathPrefix(`/floor-app`))'
         - "traefik.http.routers.floor-app.entrypoints=web,websecure"
-        - "traefik.http.routers.floor-app.priority=112"
+        - "traefik.http.routers.floor-app.priority=110"
         - "traefik.http.routers.floor-app.middlewares=floor-app-strip-prefix"
-        - "traefik.http.middlewares.floor-app-strip-prefix.stripprefix.prefixes=/operationss"
+        - "traefik.http.middlewares.floor-app-strip-prefix.stripprefix.prefixes=/floor-app"
         - "traefik.http.services.floor-app.loadbalancer.server.port=80"
         - "traefik.docker.network=tdk_restaurant_example_traefik-public"
     networks:

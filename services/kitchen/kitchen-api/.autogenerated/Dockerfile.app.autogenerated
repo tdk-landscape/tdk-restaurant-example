@@ -82,15 +82,8 @@ ARG SKIP_INFISICAL_SETUP=0
 ENV NODE_ENV=production
 COPY --from=l3_production_purger /app/services/kitchen/kitchen-api/node_modules ./node_modules
 COPY --from=l3_production_purger /app/services/kitchen/kitchen-api/node_modules/.bun /app/node_modules/.bun
-COPY --from=l3_backend_build /app/services/kitchen/kitchen-api/node_modules/.prisma ./node_modules/.prisma
-COPY --from=l3_backend_build /app/services/kitchen/kitchen-api/prisma ./prisma
 COPY --from=l3_backend_build /app/services/kitchen/kitchen-api/dist ./dist
 COPY services/kitchen/kitchen-api/package.json ./package.json
-# Fix Bun module resolution: .prisma/client must be reachable from .bun/ linker paths
-USER root
-COPY shared-platform-engineering/docker-templates/prisma-bun-client-link-fix.sh /usr/local/bin/prisma-bun-client-link-fix.sh
-RUN chmod +x /usr/local/bin/prisma-bun-client-link-fix.sh && /usr/local/bin/prisma-bun-client-link-fix.sh
-USER bun
 # Fix Bun hoisted package symlinks that break when copied to Docker
 USER root
 COPY shared-platform-engineering/docker-templates/bun-hoisted-symlink-fix.sh /usr/local/bin/bun-hoisted-symlink-fix.sh

@@ -59,6 +59,10 @@ services:
       - TILT_NATS_URL=nats://tdk_restaurant_example_nats:4222
       - NODE_ENV=development
       - DATABASE_URL=postgresql://tdk_restaurant_example:${DB_PASSWORD}@tdk_restaurant_example_postgres:5432/tdk_restaurant_example_kitchen?schema=public
+      # Per-project escape hatch: set AUTO_MIGRATE=false in the project root .env
+      # to skip Prisma auto-migration at container boot (e.g. while diagnosing a
+      # migration/CLI issue) without touching the generator or any service code.
+      - AUTO_MIGRATE=${AUTO_MIGRATE:-true}
       - AUTH_MODE=identity-service
       - IDENTITY_RESOURCE_URL=${IDENTITY_RESOURCE_URL:-None}
     labels:
@@ -144,6 +148,10 @@ services:
       - TILT_NATS_URL=nats://tdk_restaurant_example_nats:4222
       - NODE_ENV=development
       - DATABASE_URL=postgresql://tdk_restaurant_example:${DB_PASSWORD}@tdk_restaurant_example_postgres:5432/tdk_restaurant_example_kitchen?schema=public
+      # Per-project escape hatch: set AUTO_MIGRATE=false in the project root .env
+      # to skip Prisma auto-migration at container boot (e.g. while diagnosing a
+      # migration/CLI issue) without touching the generator or any service code.
+      - AUTO_MIGRATE=${AUTO_MIGRATE:-true}
       - AUTH_MODE=identity-service
       - IDENTITY_RESOURCE_URL=${IDENTITY_RESOURCE_URL:-None}
     labels:

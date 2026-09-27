@@ -1,0 +1,121 @@
+{
+  "$comment": "Declarative spec for the 'TDK Landscape Delivery' GitHub Project template. Apply it with: node .github/project-template/create-project-template.mjs --help",
+  "title": "TDK Landscape Delivery (template)",
+  "shortDescription": "Plan and ship a TDK Project-Stack-Resource landscape: one item per resource change, tracked by stack, phase, priority, and sprint.",
+  "readme": "readme.md",
+  "status": {
+    "$comment": "Replaces the options of the built-in Status field.",
+    "options": [
+      { "name": "Backlog", "color": "GRAY", "description": "Captured, not yet refined" },
+      { "name": "Ready", "color": "BLUE", "description": "Refined: stack, resource, and acceptance criteria are clear" },
+      { "name": "In progress", "color": "YELLOW", "description": "Someone is building it" },
+      { "name": "In review", "color": "PURPLE", "description": "Pull request open; `tdk up <stack>` verified locally" },
+      { "name": "Done", "color": "GREEN", "description": "Merged and healthy in the landscape" }
+    ]
+  },
+  "fields": [
+    {
+      "name": "Stack",
+      "dataType": "SINGLE_SELECT",
+      "options": [
+        { "name": "guest", "color": "BLUE", "description": "Reservations, waitlist, host stand" },
+        { "name": "kitchen", "color": "ORANGE", "description": "Tickets, stations, service pacing" },
+        { "name": "operations", "color": "GREEN", "description": "Menu availability and floor control" },
+        { "name": "platform", "color": "GRAY", "description": "Proxy, database, TDK tooling, CI" }
+      ]
+    },
+    {
+      "name": "Resource",
+      "dataType": "SINGLE_SELECT",
+      "options": [
+        { "name": "reservation-api", "color": "BLUE", "description": "guest / backend / :4100" },
+        { "name": "reservation-app", "color": "BLUE", "description": "guest / frontend / :3100" },
+        { "name": "kitchen-api", "color": "ORANGE", "description": "kitchen / backend / :4110" },
+        { "name": "kitchen-worker", "color": "ORANGE", "description": "kitchen / worker / :4111" },
+        { "name": "menu-api", "color": "GREEN", "description": "operations / backend / :4120" },
+        { "name": "floor-app", "color": "GREEN", "description": "operations / frontend / :3120" },
+        { "name": "new resource", "color": "PINK", "description": "Not in the landscape yet" },
+        { "name": "cross-cutting", "color": "GRAY", "description": "Touches several resources" }
+      ]
+    },
+    {
+      "name": "Phase",
+      "dataType": "SINGLE_SELECT",
+      "$comment": "Mirrors the phases in .tdk/project.json",
+      "options": [
+        { "name": "Pre-Alpha", "color": "RED", "description": "Core infrastructure and MVP services" },
+        { "name": "Alpha", "color": "ORANGE", "description": "Essential business services" },
+        { "name": "Beta", "color": "YELLOW", "description": "Extended features" },
+        { "name": "Out of Scope", "color": "GRAY", "description": "Future releases" }
+      ]
+    },
+    {
+      "name": "Priority",
+      "dataType": "SINGLE_SELECT",
+      "options": [
+        { "name": "P0", "color": "RED", "description": "Service is down or blocked" },
+        { "name": "P1", "color": "ORANGE", "description": "Needed for the current phase" },
+        { "name": "P2", "color": "GRAY", "description": "Nice to have" }
+      ]
+    },
+    {
+      "name": "Size",
+      "dataType": "SINGLE_SELECT",
+      "options": [
+        { "name": "XS", "color": "GRAY", "description": "Under an hour" },
+        { "name": "S", "color": "GREEN", "description": "About half a day" },
+        { "name": "M", "color": "BLUE", "description": "One to two days" },
+        { "name": "L", "color": "YELLOW", "description": "Most of a sprint" },
+        { "name": "XL", "color": "RED", "description": "Split it before starting" }
+      ]
+    },
+    { "name": "Estimate", "dataType": "NUMBER" },
+    { "name": "Target date", "dataType": "DATE" },
+    {
+      "name": "Sprint",
+      "dataType": "ITERATION",
+      "iteration": { "durationDays": 14 }
+    }
+  ],
+  "items": [
+    {
+      "title": "Bring the landscape up locally with `tdk up`",
+      "body": "- [ ] Docker, Tilt, Bun, and `tdk` installed (`tdk doctor` is green)\n- [ ] `tdk up` starts guest, kitchen, and operations\n- [ ] Every `/health` endpoint answers",
+      "fields": { "Status": "Ready", "Stack": "platform", "Resource": "cross-cutting", "Phase": "Pre-Alpha", "Priority": "P0", "Size": "S" }
+    },
+    {
+      "title": "reservation-api: persist reservations and waitlist",
+      "body": "Replace in-memory reservations with the platform database.\n\n**Acceptance**\n- [ ] Reservations survive `tdk down && tdk up guest`\n- [ ] `/health` reports database connectivity",
+      "fields": { "Status": "Backlog", "Stack": "guest", "Resource": "reservation-api", "Phase": "Pre-Alpha", "Priority": "P1", "Size": "M" }
+    },
+    {
+      "title": "reservation-app: host stand table-hold screen",
+      "body": "Host can place, extend, and release a table hold from the reservation app.",
+      "fields": { "Status": "Backlog", "Stack": "guest", "Resource": "reservation-app", "Phase": "Alpha", "Priority": "P1", "Size": "M" }
+    },
+    {
+      "title": "kitchen-worker: course-fire signal when tickets age",
+      "body": "Emit a fire signal to kitchen-api when a ticket passes its pacing threshold.",
+      "fields": { "Status": "Backlog", "Stack": "kitchen", "Resource": "kitchen-worker", "Phase": "Alpha", "Priority": "P1", "Size": "S" }
+    },
+    {
+      "title": "menu-api: 86 an item and propagate to floor-app",
+      "body": "Marking an item unavailable in menu-api shows up on the floor view within one refresh.",
+      "fields": { "Status": "Backlog", "Stack": "operations", "Resource": "menu-api", "Phase": "Alpha", "Priority": "P2", "Size": "S" }
+    },
+    {
+      "title": "New resource: payments-api in a new `billing` stack",
+      "body": "Example of adding a resource: create `services/billing/payments-api/service.json`, run `tdk up billing`, and add the stack to `.tdk/project.json`.",
+      "fields": { "Status": "Backlog", "Stack": "platform", "Resource": "new resource", "Phase": "Beta", "Priority": "P2", "Size": "L" }
+    }
+  ],
+  "labels": [
+    { "name": "stack:guest", "color": "1f6feb", "description": "Guest stack: reservations, waitlist, host stand" },
+    { "name": "stack:kitchen", "color": "d4700d", "description": "Kitchen stack: tickets, stations, pacing" },
+    { "name": "stack:operations", "color": "1a7f37", "description": "Operations stack: menu and floor" },
+    { "name": "stack:platform", "color": "6e7781", "description": "Proxy, database, TDK tooling, CI" },
+    { "name": "new-resource", "color": "bf3989", "description": "Proposes a new TDK resource" },
+    { "name": "bug", "color": "d73a4a", "description": "Something isn't working" },
+    { "name": "enhancement", "color": "a2eeef", "description": "New feature or request" }
+  ]
+}

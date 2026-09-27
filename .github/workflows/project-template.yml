@@ -1,0 +1,42 @@
+name: Create project template
+
+# Manually creates the "TDK Landscape Delivery" org project from
+# .github/project-template/template.json and marks it as a template.
+# The default GITHUB_TOKEN cannot create organization projects, so this needs
+# a PROJECT_TEMPLATE_TOKEN secret (classic PAT with `project` and `repo` scopes).
+
+on:
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: Print the plan without calling GitHub
+        type: boolean
+        default: true
+      title:
+        description: Project title (blank = title from template.json)
+        type: string
+        required: false
+
+permissions:
+  contents: read
+
+jobs:
+  create:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Create project
+        env:
+          GITHUB_TOKEN: ${{ secrets.PROJECT_TEMPLATE_TOKEN }}
+          DRY_RUN: ${{ inputs.dry_run }}
+          TITLE: ${{ inputs.title }}
+        run: |
+          set -- --org "$GITHUB_REPOSITORY_OWNER" --repo "${GITHUB_REPOSITORY#*/}"
+          if [ -n "$TITLE" ]; then set -- "$@" --title "$TITLE"; fi
+          if [ "$DRY_RUN" = "true" ]; then set -- "$@" --dry-run; fi
+          node .github/project-template/create-project-template.mjs "$@"

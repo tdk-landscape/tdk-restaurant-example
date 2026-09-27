@@ -137,6 +137,14 @@ Running `tdk up` turns those manifests into local orchestration files for Tilt, 
 
 Open [DEMO_GUIDE.md](DEMO_GUIDE.md) for a three-minute walkthrough that shows how a host stand, kitchen pass, and manager floor view can be split into TDK resources without hand-wiring local orchestration.
 
+## Plan the Work: GitHub Project Template
+
+[docs/PROJECT_TEMPLATE.md](docs/PROJECT_TEMPLATE.md) sets up **TDK Landscape Delivery**, an organization project template. It tracks every item by Stack, Resource, Phase, Priority, and Sprint, and ships with matching issue forms. Preview it with:
+
+```bash
+node .github/project-template/create-project-template.mjs --dry-run
+```
+
 ## Testing Individual Resources
 
 Each resource is standalone and testable:

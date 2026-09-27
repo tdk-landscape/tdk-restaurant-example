@@ -139,11 +139,7 @@ Open [DEMO_GUIDE.md](DEMO_GUIDE.md) for a three-minute walkthrough that shows ho
 
 ## Plan the Work: GitHub Project Template
 
-[docs/PROJECT_TEMPLATE.md](docs/PROJECT_TEMPLATE.md) sets up **TDK Landscape Delivery**, an organization project template. It tracks every item by Stack, Resource, Phase, Priority, and Sprint, and ships with matching issue forms. Preview it with:
-
-```bash
-node .github/project-template/create-project-template.mjs --dry-run
-```
+[docs/PROJECT_TEMPLATE.md](docs/PROJECT_TEMPLATE.md) walks through building **TDK Landscape Delivery**, an organization project template, in the GitHub UI. It tracks every item by Stack, Resource, Phase, Priority, and Sprint, and matches the issue forms in `.github/ISSUE_TEMPLATE/`.
 
 ## Testing Individual Resources
 

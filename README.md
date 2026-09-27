@@ -35,7 +35,7 @@ You declare each restaurant service in a compact `service.json`. TDK discovers t
 - [Docker](https://docs.docker.com/get-docker/) is running.
 - [Tilt](https://docs.tilt.dev/install.html) is installed.
 - [Bun 1.2+](https://bun.sh/docs/installation) is installed.
-- [TDK CLI](https://github.com/tdk-landscape/tdk-cli#installation) is available as `tdk`.
+- [TDK CLI](https://github.com/tdk-landscape/tdk-cli-core#installation) is available as `tdk`.
 
 ```bash
 git clone https://github.com/tdk-landscape/tdk-restaurant-example.git

@@ -1,0 +1,52 @@
+name: New resource
+description: Propose a new API, app, or worker (optionally in a new stack)
+labels: [new-resource]
+body:
+  - type: input
+    id: name
+    attributes:
+      label: Resource name (`appName`)
+      placeholder: payments-api
+    validations:
+      required: true
+  - type: input
+    id: stack
+    attributes:
+      label: Stack
+      description: An existing stack (guest, kitchen, operations) or a new one
+      placeholder: billing
+    validations:
+      required: true
+  - type: dropdown
+    id: type
+    attributes:
+      label: Resource type (`appType`)
+      options: [backend, frontend, worker]
+    validations:
+      required: true
+  - type: input
+    id: depends
+    attributes:
+      label: Depends on (`dependsOn`)
+      placeholder: reservation-api, menu-api
+  - type: textarea
+    id: why
+    attributes:
+      label: Why does the landscape need it?
+    validations:
+      required: true
+  - type: textarea
+    id: manifest
+    attributes:
+      label: Draft service.json
+      render: json
+      value: |
+        {
+          "appName": "payments-api",
+          "appType": "backend",
+          "stack": "billing",
+          "port": 4130,
+          "dependsOn": [],
+          "healthCheck": { "enabled": true, "path": "/health" },
+          "features": []
+        }

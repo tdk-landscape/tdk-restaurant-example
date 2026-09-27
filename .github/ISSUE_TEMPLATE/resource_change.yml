@@ -1,0 +1,43 @@
+name: Resource change
+description: A feature or improvement to one resource in the restaurant landscape
+labels: [enhancement]
+body:
+  - type: dropdown
+    id: stack
+    attributes:
+      label: Stack
+      options: [guest, kitchen, operations, platform]
+    validations:
+      required: true
+  - type: dropdown
+    id: resource
+    attributes:
+      label: Resource
+      description: The `appName` from the resource's `service.json`
+      options:
+        - reservation-api
+        - reservation-app
+        - kitchen-api
+        - kitchen-worker
+        - menu-api
+        - floor-app
+        - cross-cutting
+    validations:
+      required: true
+  - type: textarea
+    id: outcome
+    attributes:
+      label: What should the resource do?
+      description: Describe the behavior from the restaurant's point of view (host, kitchen, manager).
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance criteria
+      value: |
+        - [ ] `tdk up <stack>` starts cleanly
+        - [ ] `/health` stays green
+        - [ ]
+    validations:
+      required: true

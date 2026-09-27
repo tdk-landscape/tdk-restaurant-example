@@ -1,0 +1,45 @@
+name: Bug report
+description: A resource in the restaurant landscape misbehaves
+labels: [bug]
+body:
+  - type: dropdown
+    id: resource
+    attributes:
+      label: Resource
+      options:
+        - reservation-api
+        - reservation-app
+        - kitchen-api
+        - kitchen-worker
+        - menu-api
+        - floor-app
+        - not sure
+    validations:
+      required: true
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: What did you run, what did you expect, and what happened instead?
+    validations:
+      required: true
+  - type: textarea
+    id: repro
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. tdk up guest
+        2. open http://localhost:3100
+        3. ...
+    validations:
+      required: true
+  - type: textarea
+    id: status
+    attributes:
+      label: Output of `tdk status`
+      render: shell
+  - type: input
+    id: version
+    attributes:
+      label: TDK version
+      description: Output of `tdk --version`

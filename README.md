@@ -28,6 +28,8 @@ You declare each restaurant service in a compact `service.json`. TDK discovers t
   <img src="docs/readme-marquee.svg" alt="service.json, tdk up, reservations, kitchen, floor, Hono, Vite, Tilt, and Bun" width="100%">
 </p>
 
+> ⭐ **This project runs on [TDK CLI](https://github.com/tdk-landscape/tdk-cli-core).** If it saves you time, [star tdk-cli-core on GitHub](https://github.com/tdk-landscape/tdk-cli-core) so other developers can find it.
+
 ## Run It
 
 ### Prerequisites

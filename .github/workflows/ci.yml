@@ -114,6 +114,23 @@ jobs:
             exit 1
           }
 
+          if [ -n "$WEB_CHECKS" ]; then
+            frontend_total=$(wc -l < web-urls.txt | tr -d ' ')
+            [ "$frontend_total" -gt 0 ] || { echo 'No frontend health URLs were reported' >&2; exit 1; }
+            for attempt in $(seq 1 72); do
+              frontend_healthy=$(xargs -P 8 -I{} curl -s -o /dev/null -m 5 -w '%{http_code}\n' {} < web-urls.txt | grep -c '^2' || true)
+              echo "Healthy frontends: $frontend_healthy/$frontend_total"
+              [ "$frontend_healthy" -eq "$frontend_total" ] && break
+              tilt get uiresources -o json 2>/dev/null | jq -e '[.items[] | select(.status.updateStatus == "error")] | length > 0' >/dev/null && {
+                echo 'Tilt reported a failed resource while waiting for frontends:' >&2
+                tilt get uiresources -o json | jq -r '.items[] | select(.status.updateStatus == "error") | .metadata.name'
+                exit 1
+              }
+              sleep 15
+            done
+            [ "$frontend_healthy" -eq "$frontend_total" ] || { echo "Only $frontend_healthy of $frontend_total frontends became healthy" >&2; exit 1; }
+          fi
+
           # Exercise representative business APIs; /health alone can pass even
           # when app routes or generated Traefik routing are broken.
           while IFS='|' read -r pattern path; do

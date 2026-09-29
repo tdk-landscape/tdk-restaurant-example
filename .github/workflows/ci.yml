@@ -1,4 +1,4 @@
-name: TDK CI
+name: 🍽️ Restaurant Example CI
 
 on:
   pull_request:

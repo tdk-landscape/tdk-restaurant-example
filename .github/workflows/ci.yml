@@ -104,6 +104,11 @@ jobs:
             tilt get uiresources -o json 2>/dev/null | jq -e '[.items[] | select(.status.updateStatus == "error")] | length > 0' >/dev/null && {
               echo 'Tilt reported a failed resource:' >&2
               tilt get uiresources -o json | jq -c '.items[] | select(.status.updateStatus == "error") | {name: .metadata.name, status: .status}'
+              for resource in $(tilt get uiresources -o json | jq -r '.items[] | select(.status.updateStatus == "error") | .metadata.name'); do
+                echo "::group::Build log for $resource"
+                tilt logs --source build --since 20m "$resource" || true
+                echo "::endgroup::"
+              done
               exit 1
             }
             sleep 15
@@ -124,6 +129,11 @@ jobs:
               tilt get uiresources -o json 2>/dev/null | jq -e '[.items[] | select(.status.updateStatus == "error")] | length > 0' >/dev/null && {
                 echo 'Tilt reported a failed resource while waiting for frontends:' >&2
                 tilt get uiresources -o json | jq -c '.items[] | select(.status.updateStatus == "error") | {name: .metadata.name, status: .status}'
+              for resource in $(tilt get uiresources -o json | jq -r '.items[] | select(.status.updateStatus == "error") | .metadata.name'); do
+                echo "::group::Build log for $resource"
+                tilt logs --source build --since 20m "$resource" || true
+                echo "::endgroup::"
+              done
                 exit 1
               }
               sleep 15

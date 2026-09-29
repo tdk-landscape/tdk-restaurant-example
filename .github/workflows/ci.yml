@@ -103,7 +103,7 @@ jobs:
             [ "$healthy" -eq "$total" ] && break
             tilt get uiresources -o json 2>/dev/null | jq -e '[.items[] | select(.status.updateStatus == "error")] | length > 0' >/dev/null && {
               echo 'Tilt reported a failed resource:' >&2
-              tilt get uiresources -o json | jq -r '.items[] | select(.status.updateStatus == "error") | .metadata.name'
+              tilt get uiresources -o json | jq -c '.items[] | select(.status.updateStatus == "error") | {name: .metadata.name, status: .status}'
               exit 1
             }
             sleep 15
@@ -123,7 +123,7 @@ jobs:
               [ "$frontend_healthy" -eq "$frontend_total" ] && break
               tilt get uiresources -o json 2>/dev/null | jq -e '[.items[] | select(.status.updateStatus == "error")] | length > 0' >/dev/null && {
                 echo 'Tilt reported a failed resource while waiting for frontends:' >&2
-                tilt get uiresources -o json | jq -r '.items[] | select(.status.updateStatus == "error") | .metadata.name'
+                tilt get uiresources -o json | jq -c '.items[] | select(.status.updateStatus == "error") | {name: .metadata.name, status: .status}'
                 exit 1
               }
               sleep 15

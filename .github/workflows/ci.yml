@@ -61,8 +61,18 @@ jobs:
         run: npm install --global @tdk-landscape/tdk-cli-core@latest
       - name: Generate project configuration
         run: tdk project --yes
-      - name: Start the example and wait for backend health checks
+      - name: Start the example and verify real app routes
         shell: bash
+        env:
+          API_CHECKS: |
+            reservation|/api/v1/reservations
+            reservation|/api/v1/waitlist
+            kitchen|/api/v1/tickets
+            kitchen|/api/v1/stations
+            menu|/api/v1/menu-items
+          WEB_CHECKS: |
+            reservation-app|/
+            floor-app|/
         run: |
           tdk up > up.log 2>&1 &
           pid=$!
@@ -80,6 +90,7 @@ jobs:
           awk '/Starting [0-9]+ service/{found=1} /Running tilt up/{found=0} found' up.log \
             | grep -oE 'https?://[^ ]+' | sort -u > urls.txt || true
           grep -E '^https?://api\.' urls.txt > backend-urls.txt || true
+          grep -E '^https?://app\.' urls.txt > web-urls.txt || true
           if [ ! -s backend-urls.txt ]; then
             tail -100 up.log
             echo 'tdk up did not report backend health URLs' >&2
@@ -89,7 +100,7 @@ jobs:
           for attempt in $(seq 1 72); do
             healthy=$(xargs -P 12 -I{} curl -s -o /dev/null -m 5 -w '%{http_code}\n' {} < backend-urls.txt | grep -c '^2' || true)
             echo "Healthy backends: $healthy/$total"
-            [ "$healthy" -eq "$total" ] && exit 0
+            [ "$healthy" -eq "$total" ] && break
             tilt get uiresources -o json 2>/dev/null | jq -e '[.items[] | select(.status.updateStatus == "error")] | length > 0' >/dev/null && {
               echo 'Tilt reported a failed resource:' >&2
               tilt get uiresources -o json | jq -r '.items[] | select(.status.updateStatus == "error") | .metadata.name'
@@ -97,9 +108,59 @@ jobs:
             }
             sleep 15
           done
-          echo "Only $healthy of $total backends became healthy within 18 minutes" >&2
-          tail -100 up.log
-          exit 1
+          [ "$healthy" -eq "$total" ] || {
+            echo "Only $healthy of $total backends became healthy within 18 minutes" >&2
+            tail -100 up.log
+            exit 1
+          }
+
+          # Exercise representative business APIs; /health alone can pass even
+          # when app routes or generated Traefik routing are broken.
+          while IFS='|' read -r pattern path; do
+            [ -n "$pattern" ] || continue
+            base="$(grep -E "$pattern" backend-urls.txt | head -1 | sed 's#/health$##' || true)"
+            [ -n "$base" ] || { echo "No backend URL matched '$pattern'" >&2; exit 1; }
+            url="$base$path"
+            passed=false
+            for _ in $(seq 1 12); do
+              code="$(curl -sS -o response.json -m 10 -w '%{http_code}' "$url" || true)"
+              if [[ "$code" == 2* ]] && jq -e . response.json >/dev/null 2>&1; then
+                echo "API OK $url"
+                passed=true
+                break
+              fi
+              sleep 5
+            done
+            if [ "$passed" != true ]; then
+              echo "API check failed: $url (HTTP ${code:-none})" >&2
+              cat response.json 2>/dev/null || true
+              exit 1
+            fi
+          done <<< "$API_CHECKS"
+
+          # Check each app route returns its actual HTML page, not only a
+          # container health response.
+          while IFS='|' read -r pattern path; do
+            [ -n "$pattern" ] || continue
+            base="$(grep -E "$pattern" web-urls.txt | head -1 | sed -E 's#/health$##; s#/+$##' || true)"
+            [ -n "$base" ] || { echo "No frontend URL matched '$pattern'" >&2; exit 1; }
+            url="$base$path"
+            passed=false
+            for _ in $(seq 1 12); do
+              code="$(curl -sS -o page.html -m 10 -w '%{http_code}' "$url" || true)"
+              if [[ "$code" == 2* ]] && grep -qi '<html' page.html; then
+                echo "Page OK $url"
+                passed=true
+                break
+              fi
+              sleep 5
+            done
+            if [ "$passed" != true ]; then
+              echo "Frontend check failed: $url (HTTP ${code:-none})" >&2
+              head -c 500 page.html 2>/dev/null || true
+              exit 1
+            fi
+          done <<< "$WEB_CHECKS"
       - name: Diagnostics on failure
         if: failure() || cancelled()
         run: |

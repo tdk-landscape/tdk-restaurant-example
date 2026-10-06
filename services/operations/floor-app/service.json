@@ -1,19 +1,17 @@
 {
-    "appName": "floor-app",
-    "appType": "frontend",
-    "stack": "operations",
-    "port": 3120,
-    "dependsOn": [
-        "menu-api",
-        "reservation-api"
-    ],
-    "healthCheck": {
-        "enabled": true,
-        "path": "/"
-    },
-    "features": [
-        "api-client",
-        "env-config",
-        "api-index"
-    ]
+  "$schema": "https://tdk-landscape.github.io/schema.service.json",
+  "schemaVersion": 1,
+  "appName": "floor-app",
+  "appType": "frontend",
+  "stack": "operations",
+  "port": 3120,
+  "dependsOn": [
+    "menu-api",
+    "reservation-api"
+  ],
+  "featuresEnabled": [
+    "api-client",
+    "env-config",
+    "api-index"
+  ]
 }

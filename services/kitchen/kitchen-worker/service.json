@@ -1,14 +1,15 @@
 {
-    "appName": "kitchen-worker",
-    "appType": "worker",
-    "stack": "kitchen",
-    "port": 4111,
-    "dependsOn": [
-        "kitchen-api"
-    ],
-    "healthCheck": {
-        "enabled": true,
-        "path": "/health"
-    },
-    "features": []
+  "$schema": "https://tdk-landscape.github.io/schema.service.json",
+  "schemaVersion": 1,
+  "appName": "kitchen-worker",
+  "appType": "worker",
+  "stack": "kitchen",
+  "port": 4111,
+  "dependsOn": [
+    "kitchen-api"
+  ],
+  "healthCheckPath": "/health",
+  "featuresEnabled": [
+    "nats"
+  ]
 }

@@ -1,19 +1,17 @@
 {
-    "appName": "reservation-app",
-    "appType": "frontend",
-    "stack": "guest",
-    "port": 3100,
-    "basePath": "/reservation-app",
-    "dependsOn": [
-        "reservation-api"
-    ],
-    "healthCheck": {
-        "enabled": true,
-        "path": "/"
-    },
-    "features": [
-        "api-client",
-        "env-config",
-        "api-index"
-    ]
+  "$schema": "https://tdk-landscape.github.io/schema.service.json",
+  "schemaVersion": 1,
+  "appName": "reservation-app",
+  "appType": "frontend",
+  "stack": "guest",
+  "port": 3100,
+  "basePath": "/reservation-app",
+  "dependsOn": [
+    "reservation-api"
+  ],
+  "featuresEnabled": [
+    "api-client",
+    "env-config",
+    "api-index"
+  ]
 }

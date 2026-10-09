@@ -1,14 +1,12 @@
 {
-    "appName": "kitchen-worker",
-    "appType": "worker",
-    "stack": "kitchen",
-    "port": 4111,
-    "dependsOn": [
-        "kitchen-api"
-    ],
-    "healthCheck": {
-        "enabled": true,
-        "path": "/health"
-    },
-    "features": []
+  "appName": "kitchen-worker",
+  "appType": "worker",
+  "stack": "kitchen",
+  "port": 4111,
+  "dependsOn": [
+    "kitchen-api"
+  ],
+  "healthCheckPath": "/health",
+  "featuresEnabled": [],
+  "schemaVersion": 1
 }

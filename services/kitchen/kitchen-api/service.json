@@ -1,10 +1,10 @@
 {
+  "$schema": "https://tdk-landscape.github.io/schema.service.json",
+  "schemaVersion": 1,
   "appName": "kitchen-api",
   "appType": "backend",
   "stack": "kitchen",
   "port": 4110,
   "dependsOn": [],
-  "healthCheckPath": "/health",
-  "featuresEnabled": [],
-  "schemaVersion": 1
+  "healthCheckPath": "/health"
 }

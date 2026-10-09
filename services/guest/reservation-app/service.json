@@ -1,4 +1,6 @@
 {
+  "$schema": "https://tdk-landscape.github.io/schema.service.json",
+  "schemaVersion": 1,
   "appName": "reservation-app",
   "appType": "frontend",
   "stack": "guest",
@@ -7,11 +9,9 @@
   "dependsOn": [
     "reservation-api"
   ],
-  "healthCheckPath": "/",
   "featuresEnabled": [
     "api-client",
     "env-config",
     "api-index"
-  ],
-  "schemaVersion": 1
+  ]
 }
